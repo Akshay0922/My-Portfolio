@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thanks! | Akshay G Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <style>
+        .thanks-container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+            background: var(--bg-color);
+            color: var(--text-color);
+        }
+        .thanks-container h1 {
+            color: var(--hover-color);
+            margin-bottom: 1rem;
+        }
+        .thanks-container p {
+            margin-bottom: 2rem;
+            font-size: 1.2rem;
+        }
+        .back-btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: var(--hover-color);
+            color: var(--bg-color);
+            border-radius: 5px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        .back-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 10px rgba(18, 247, 255, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="thanks-container">
+        <h1>Thank You!</h1>
+        <p>Your message has been sent successfully. I'll get back to you soon!</p>
+        <a href="index.html" class="back-btn">Back to Portfolio</a>
+    </div>
+</body>
+</html>
