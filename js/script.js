@@ -549,64 +549,126 @@ scrollAnimationElements.forEach(element => {
     scrollObserver.observe(element);
 });
 
-// Enhanced mobile menu handling
-const menuIcon = document.querySelector("#menu-icon");
-const navlist = document.querySelector(".navlist");
-const navLinks = document.querySelectorAll(".navlist a");
+// Enhanced Mobile Menu with touch support and better performance
+const menuIcon = document.querySelector('#menu-icon');
+const navlist = document.querySelector('.navlist');
+let touchStartY = 0;
+let touchEndY = 0;
 
-menuIcon.addEventListener('click', () => {
-    menuIcon.classList.toggle("bx-x");
-    navlist.classList.toggle("open");
-    document.body.classList.toggle('menu-open');
-});
+if (menuIcon && navlist) {
+    // Touch events for mobile menu
+    navlist.addEventListener('touchstart', (e) => {
+        touchStartY = e.touches[0].clientY;
+    }, { passive: true });
 
-// Close menu when clicking outside
-document.addEventListener('click', (e) => {
-    if (navlist.classList.contains('open') && 
-        !navlist.contains(e.target) && 
-        !menuIcon.contains(e.target)) {
-        menuIcon.classList.remove("bx-x");
-        navlist.classList.remove("open");
-        document.body.classList.remove('menu-open');
-    }
-});
+    navlist.addEventListener('touchmove', (e) => {
+        touchEndY = e.touches[0].clientY;
+        const diffY = touchStartY - touchEndY;
 
-// Close menu when clicking on links
-navLinks.forEach(link => {
-    link.addEventListener('click', () => {
-        menuIcon.classList.remove("bx-x");
-        navlist.classList.remove("open");
-        document.body.classList.remove('menu-open');
+        // Close menu on swipe up
+        if (diffY > 50) {
+            menuIcon.classList.remove('bx-x');
+            navlist.classList.remove('open');
+            document.body.classList.remove('menu-open');
+        }
+    }, { passive: true });
+
+    // Prevent menu from closing when touching menu items
+    navlist.querySelectorAll('a').forEach(link => {
+        link.addEventListener('touchend', (e) => {
+            e.preventDefault();
+            const href = link.getAttribute('href');
+            if (href.startsWith('#')) {
+                const target = document.querySelector(href);
+                if (target) {
+                    menuIcon.classList.remove('bx-x');
+                    navlist.classList.remove('open');
+                    document.body.classList.remove('menu-open');
+                    
+                    // Smooth scroll with touch feedback
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    
+                    // Add active state feedback
+                    link.classList.add('active');
+                    setTimeout(() => link.classList.remove('active'), 300);
+                }
+            } else {
+                window.location.href = href;
+            }
+        });
     });
-});
-
-// Debounce function for better scroll performance
-function debounce(func, wait = 20) {
-    let timeout;
-    return function executedFunction(...args) {
-        const later = () => {
-            clearTimeout(timeout);
-            func(...args);
-        };
-        clearTimeout(timeout);
-        timeout = setTimeout(later, wait);
-    };
 }
 
-// Optimize scroll event handlers
-const debouncedScroll = debounce(() => {
-    // Handle sticky header
-    header.classList.toggle("sticky", window.scrollY > 50);
+// Optimize images for mobile
+function optimizeImages() {
+    const images = document.querySelectorAll('img[loading="lazy"]');
+    if ('connection' in navigator) {
+        const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+        const isSlowConnection = connection && (connection.saveData || connection.effectiveType.includes('2g'));
+
+        images.forEach(img => {
+            if (isSlowConnection && img.dataset.lowres) {
+                img.src = img.dataset.lowres;
+            }
+            
+            img.addEventListener('load', () => {
+                img.classList.add('loaded');
+                if (img.parentElement.classList.contains('img-box')) {
+                    img.parentElement.classList.add('loaded');
+                }
+            });
+        });
+    }
+}
+
+// Enhance scroll performance
+const scrollHandler = debounce(() => {
+    // Update header
+    if (header) {
+        const shouldBeSticky = window.scrollY > 50;
+        if (shouldBeSticky !== header.classList.contains('sticky')) {
+            header.classList.toggle('sticky', shouldBeSticky);
+        }
+    }
+
+    // Update scroll to top button
+    if (scrollTopBtn) {
+        const shouldBeVisible = window.scrollY > 300;
+        if (shouldBeVisible !== scrollTopBtn.classList.contains('active')) {
+            scrollTopBtn.classList.toggle('active', shouldBeVisible);
+        }
+    }
+
+    // Update active menu items
+    if (!navlist.classList.contains('open')) {
+        activeMenu();
+    }
+}, 10);
+
+// Initialize mobile optimizations
+document.addEventListener('DOMContentLoaded', () => {
+    optimizeImages();
     
-    // Handle scroll to top button
-    scrollTopBtn.classList.toggle('active', window.scrollY > 300);
+    // Add touch feedback to buttons
+    document.querySelectorAll('.btn').forEach(btn => {
+        btn.addEventListener('touchstart', () => {
+            btn.style.transform = 'scale(0.95)';
+        }, { passive: true });
+        
+        btn.addEventListener('touchend', () => {
+            btn.style.transform = '';
+        }, { passive: true });
+    });
     
-    // Handle active menu
-    activeMenu();
+    // Initialize scroll position
+    scrollHandler();
 });
 
 // Attach optimized scroll handler
-window.addEventListener("scroll", debouncedScroll);
+window.addEventListener('scroll', scrollHandler, { passive: true });
 
 // Initialize elements on load
 document.addEventListener('DOMContentLoaded', () => {
@@ -617,4 +679,20 @@ document.addEventListener('DOMContentLoaded', () => {
         scrollTopBtn.classList.add('active');
     }
     activeMenu();
+});
+
+// Smooth scrolling for navigation links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href');
+        const targetSection = document.querySelector(targetId);
+        
+        if (targetSection) {
+            targetSection.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+    });
 });
