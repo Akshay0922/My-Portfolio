@@ -549,126 +549,64 @@ scrollAnimationElements.forEach(element => {
     scrollObserver.observe(element);
 });
 
-// Enhanced Mobile Menu with touch support and better performance
-const menuIcon = document.querySelector('#menu-icon');
-const navlist = document.querySelector('.navlist');
-let touchStartY = 0;
-let touchEndY = 0;
+// Enhanced mobile menu handling
+const menuIcon = document.querySelector("#menu-icon");
+const navlist = document.querySelector(".navlist");
+const navLinks = document.querySelectorAll(".navlist a");
 
-if (menuIcon && navlist) {
-    // Touch events for mobile menu
-    navlist.addEventListener('touchstart', (e) => {
-        touchStartY = e.touches[0].clientY;
-    }, { passive: true });
+menuIcon.addEventListener('click', () => {
+    menuIcon.classList.toggle("bx-x");
+    navlist.classList.toggle("open");
+    document.body.classList.toggle('menu-open');
+});
 
-    navlist.addEventListener('touchmove', (e) => {
-        touchEndY = e.touches[0].clientY;
-        const diffY = touchStartY - touchEndY;
+// Close menu when clicking outside
+document.addEventListener('click', (e) => {
+    if (navlist.classList.contains('open') && 
+        !navlist.contains(e.target) && 
+        !menuIcon.contains(e.target)) {
+        menuIcon.classList.remove("bx-x");
+        navlist.classList.remove("open");
+        document.body.classList.remove('menu-open');
+    }
+});
 
-        // Close menu on swipe up
-        if (diffY > 50) {
-            menuIcon.classList.remove('bx-x');
-            navlist.classList.remove('open');
-            document.body.classList.remove('menu-open');
-        }
-    }, { passive: true });
-
-    // Prevent menu from closing when touching menu items
-    navlist.querySelectorAll('a').forEach(link => {
-        link.addEventListener('touchend', (e) => {
-            e.preventDefault();
-            const href = link.getAttribute('href');
-            if (href.startsWith('#')) {
-                const target = document.querySelector(href);
-                if (target) {
-                    menuIcon.classList.remove('bx-x');
-                    navlist.classList.remove('open');
-                    document.body.classList.remove('menu-open');
-                    
-                    // Smooth scroll with touch feedback
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                    
-                    // Add active state feedback
-                    link.classList.add('active');
-                    setTimeout(() => link.classList.remove('active'), 300);
-                }
-            } else {
-                window.location.href = href;
-            }
-        });
+// Close menu when clicking on links
+navLinks.forEach(link => {
+    link.addEventListener('click', () => {
+        menuIcon.classList.remove("bx-x");
+        navlist.classList.remove("open");
+        document.body.classList.remove('menu-open');
     });
+});
+
+// Debounce function for better scroll performance
+function debounce(func, wait = 20) {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
 }
 
-// Optimize images for mobile
-function optimizeImages() {
-    const images = document.querySelectorAll('img[loading="lazy"]');
-    if ('connection' in navigator) {
-        const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
-        const isSlowConnection = connection && (connection.saveData || connection.effectiveType.includes('2g'));
-
-        images.forEach(img => {
-            if (isSlowConnection && img.dataset.lowres) {
-                img.src = img.dataset.lowres;
-            }
-            
-            img.addEventListener('load', () => {
-                img.classList.add('loaded');
-                if (img.parentElement.classList.contains('img-box')) {
-                    img.parentElement.classList.add('loaded');
-                }
-            });
-        });
-    }
-}
-
-// Enhance scroll performance
-const scrollHandler = debounce(() => {
-    // Update header
-    if (header) {
-        const shouldBeSticky = window.scrollY > 50;
-        if (shouldBeSticky !== header.classList.contains('sticky')) {
-            header.classList.toggle('sticky', shouldBeSticky);
-        }
-    }
-
-    // Update scroll to top button
-    if (scrollTopBtn) {
-        const shouldBeVisible = window.scrollY > 300;
-        if (shouldBeVisible !== scrollTopBtn.classList.contains('active')) {
-            scrollTopBtn.classList.toggle('active', shouldBeVisible);
-        }
-    }
-
-    // Update active menu items
-    if (!navlist.classList.contains('open')) {
-        activeMenu();
-    }
-}, 10);
-
-// Initialize mobile optimizations
-document.addEventListener('DOMContentLoaded', () => {
-    optimizeImages();
+// Optimize scroll event handlers
+const debouncedScroll = debounce(() => {
+    // Handle sticky header
+    header.classList.toggle("sticky", window.scrollY > 50);
     
-    // Add touch feedback to buttons
-    document.querySelectorAll('.btn').forEach(btn => {
-        btn.addEventListener('touchstart', () => {
-            btn.style.transform = 'scale(0.95)';
-        }, { passive: true });
-        
-        btn.addEventListener('touchend', () => {
-            btn.style.transform = '';
-        }, { passive: true });
-    });
+    // Handle scroll to top button
+    scrollTopBtn.classList.toggle('active', window.scrollY > 300);
     
-    // Initialize scroll position
-    scrollHandler();
+    // Handle active menu
+    activeMenu();
 });
 
 // Attach optimized scroll handler
-window.addEventListener('scroll', scrollHandler, { passive: true });
+window.addEventListener("scroll", debouncedScroll);
 
 // Initialize elements on load
 document.addEventListener('DOMContentLoaded', () => {
@@ -679,134 +617,4 @@ document.addEventListener('DOMContentLoaded', () => {
         scrollTopBtn.classList.add('active');
     }
     activeMenu();
-});
-
-// Smooth scrolling for navigation links
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const targetId = this.getAttribute('href');
-        const targetSection = document.querySelector(targetId);
-        
-        if (targetSection) {
-            targetSection.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
-        }
-    });
-});
-
-// Home section enhancements
-document.addEventListener('DOMContentLoaded', () => {
-    // Optimize image loading
-    const profileImage = document.querySelector('.img-box img');
-    if (profileImage) {
-        profileImage.addEventListener('load', () => {
-            profileImage.classList.add('loaded');
-        });
-    }
-
-    // Smooth reveal animation for home content
-    const homeContent = document.querySelector('.home-content');
-    const homeImage = document.querySelector('.home-image');
-    
-    if (homeContent && homeImage) {
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, {
-            threshold: 0.1
-        });
-
-        observer.observe(homeContent);
-        observer.observe(homeImage);
-    }
-
-    // Optimize animation performance
-    const animatedElements = document.querySelectorAll('.home-content, .home-image');
-    animatedElements.forEach(element => {
-        element.style.willChange = 'transform, opacity';
-    });
-
-    // Handle responsive behavior
-    let resizeTimeout;
-    window.addEventListener('resize', () => {
-        clearTimeout(resizeTimeout);
-        resizeTimeout = setTimeout(() => {
-            if (window.innerWidth <= 991) {
-                // Add any mobile-specific adjustments here
-                document.querySelector('.home')?.classList.add('mobile-view');
-            } else {
-                document.querySelector('.home')?.classList.remove('mobile-view');
-            }
-        }, 250);
-    }, { passive: true });
-});
-
-// Image handling improvements
-document.addEventListener('DOMContentLoaded', () => {
-    // Handle profile images
-    const profileImages = document.querySelectorAll('.img-box img, .img-about img');
-    
-    profileImages.forEach(img => {
-        // Add loading animation
-        img.style.opacity = '0';
-        img.style.transition = 'opacity 0.3s ease';
-
-        img.onload = () => {
-            img.style.opacity = '1';
-            
-            // Ensure proper aspect ratio
-            const aspectRatio = img.naturalWidth / img.naturalHeight;
-            if (Math.abs(aspectRatio - 1) > 0.01) {
-                // If image is not square, adjust container
-                const container = img.parentElement;
-                container.style.aspectRatio = `${aspectRatio}`;
-            }
-        };
-
-        // Error handling
-        img.onerror = () => {
-            img.src = 'images/mine1.png'; // Fallback image
-        };
-
-        // Add intersection observer for lazy loading
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const img = entry.target;
-                    img.src = img.getAttribute('data-src') || img.src;
-                    observer.unobserve(img);
-                }
-            });
-        }, {
-            rootMargin: '50px'
-        });
-
-        observer.observe(img);
-    });
-
-    // Handle liquid shapes visibility
-    const liquidShapes = document.querySelectorAll('.liquid-shape');
-    const handleLiquidShapes = () => {
-        if (window.innerWidth <= 768) {
-            liquidShapes.forEach(shape => {
-                shape.style.opacity = '0.5';
-                shape.style.transform = 'scale(0.8)';
-            });
-        } else {
-            liquidShapes.forEach(shape => {
-                shape.style.opacity = '1';
-                shape.style.transform = 'scale(1)';
-            });
-        }
-    };
-
-    handleLiquidShapes();
-    window.addEventListener('resize', handleLiquidShapes);
 });
