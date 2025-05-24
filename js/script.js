@@ -696,3 +696,54 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         }
     });
 });
+
+// Home section enhancements
+document.addEventListener('DOMContentLoaded', () => {
+    // Optimize image loading
+    const profileImage = document.querySelector('.img-box img');
+    if (profileImage) {
+        profileImage.addEventListener('load', () => {
+            profileImage.classList.add('loaded');
+        });
+    }
+
+    // Smooth reveal animation for home content
+    const homeContent = document.querySelector('.home-content');
+    const homeImage = document.querySelector('.home-image');
+    
+    if (homeContent && homeImage) {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+
+        observer.observe(homeContent);
+        observer.observe(homeImage);
+    }
+
+    // Optimize animation performance
+    const animatedElements = document.querySelectorAll('.home-content, .home-image');
+    animatedElements.forEach(element => {
+        element.style.willChange = 'transform, opacity';
+    });
+
+    // Handle responsive behavior
+    let resizeTimeout;
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => {
+            if (window.innerWidth <= 991) {
+                // Add any mobile-specific adjustments here
+                document.querySelector('.home')?.classList.add('mobile-view');
+            } else {
+                document.querySelector('.home')?.classList.remove('mobile-view');
+            }
+        }, 250);
+    }, { passive: true });
+});
