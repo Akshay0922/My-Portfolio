@@ -1615,6 +1615,208 @@ footer a {
     }
 }
 
+/* MEDIA QUERIES FOR RESPONSIVE DESIGN */
+@media (max-width: 991px) {
+    header {
+        padding: 18px 4%;
+    }
+
+    section {
+        padding: 70px 4%;
+    }
+
+    .home {
+        grid-template-columns: 1fr;
+        grid-gap: 2em;
+        text-align: center;
+    }
+
+    .home-image {
+        order: -1;
+    }
+
+    .home-content {
+        max-width: 100%;
+    }
+
+    .home-image .img-box img {
+        max-width: 300px;
+    }
+
+    .liquid-shape {
+        top: 0;
+        display: block;
+    }
+
+    .social-icons {
+        margin: 3rem auto 0;
+    }
+
+    .about {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .about .img-about {
+        margin: 2rem 0;
+    }
+
+    .about .img-about img {
+        max-width: 300px;
+    }
+
+    .info-about1,
+    .info-about2,
+    .info-about3 {
+        display: block;
+        width: 80px;
+        height: 80px;
+    }
+
+    .info-about1 {
+        left: 5%;
+        top: 30%;
+    }
+
+    .info-about2 {
+        left: 70%;
+        top: 10%;
+    }
+
+    .info-about3 {
+        left: 65%;
+        top: 70%;
+    }
+
+    .skills-main {
+        grid-template-columns: 1fr;
+        padding: 0 20px;
+    }
+
+    .professional {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+
+    .box {
+        margin: 0;
+    }
+
+    .fillter-buttons {
+        margin: 2rem 10px;
+    }
+
+    .portfolio-gallery {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        padding: 10px;
+    }
+}
+
+@media (max-width: 768px) {
+    :root {
+        --big-font: 2rem;
+        --normal-font: 1.5rem;
+        --h2-font: 2.5rem;
+    }
+
+    #menu-icon {
+        display: block;
+    }
+
+    .navlist {
+        position: absolute;
+        top: -1000px;
+        right: 0;
+        left: 0;
+        display: flex;
+        flex-direction: column;
+        background: rgba(0, 0, 0, 0.9);
+        padding: 20px 0;
+        text-align: center;
+        transition: all .45s ease;
+    }
+
+    .navlist a {
+        display: block;
+        padding: 0.8rem;
+        margin: 0.5rem 0;
+    }
+
+    .navlist.open {
+        top: 100%;
+    }
+
+    .section-services {
+        grid-gap: 1rem;
+    }
+
+    .section-services .service-box {
+        flex: 1 1 250px;
+        padding: 2rem 1rem 4rem;
+    }
+
+    .service-icon {
+        width: 6rem;
+        height: 6rem;
+        font-size: 2.5rem;
+    }
+
+    .port-box:hover {
+        transform: none;
+        box-shadow: var(--neon-box-shadow);
+    }
+
+    .btn-box {
+        width: 280px;
+        margin: 0 auto;
+    }
+
+    .about-content p {
+        margin: 1rem 0 1.5rem;
+    }
+}
+
+@media (max-width: 420px) {
+    .home-image .img-box img {
+        max-width: 250px;
+    }
+
+    .about .img-about img {
+        max-width: 250px;
+    }
+
+    .btn-box {
+        width: 100%;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .btn-box .btn {
+        width: 100%;
+    }
+
+    .info-about1,
+    .info-about2,
+    .info-about3 {
+        width: 70px;
+        height: 70px;
+        font-size: 0.45rem;
+    }
+
+    .service-box {
+        margin: 0 10px;
+    }
+
+    .fillter-buttons {
+        padding: 0.5rem;
+    }
+
+    .fillter-buttons .button {
+        padding: 0.5rem 1rem;
+        font-size: 0.8rem;
+    }
+}
+
 /* SKILL ANIMATIONS */
 @keyframes skillFill {
     0% {
