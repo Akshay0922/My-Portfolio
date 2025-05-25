@@ -7,83 +7,6 @@ window.addEventListener('load', () => {
     preloader.addEventListener('transitionend', () => {
         preloader.remove();
     });
-
-    // Show all sections initially if JavaScript is disabled
-    document.body.classList.add('js-enabled');
-});
-
-// Section visibility
-document.addEventListener('DOMContentLoaded', () => {
-    const sections = document.querySelectorAll('section');
-    
-    const sectionObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
-            }
-        });
-    }, {
-        threshold: 0.1
-    });
-
-    sections.forEach(section => {
-        sectionObserver.observe(section);
-    });
-});
-
-// Section visibility handler
-document.addEventListener('DOMContentLoaded', () => {
-    const sections = document.querySelectorAll('section');
-    
-    // Add no-js class to body
-    document.body.classList.remove('no-js');
-    
-    const sectionObserver = new IntersectionObserver(
-        (entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                    // Only observe once to maintain scroll position on refresh
-                    sectionObserver.unobserve(entry.target);
-                }
-            });
-        },
-        {
-            threshold: 0.15,
-            rootMargin: '0px'
-        }
-    );
-
-    sections.forEach(section => {
-        sectionObserver.observe(section);
-    });
-});
-
-// Section visibility with better performance
-document.addEventListener('DOMContentLoaded', () => {
-    const sections = document.querySelectorAll('section');
-    
-    const sectionObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-                // Trigger child animations
-                const animatedElements = entry.target.querySelectorAll('.scroll-scale, .scroll-bottom, .scroll-top');
-                animatedElements.forEach(el => {
-                    el.classList.add('show-items');
-                });
-            }
-        });
-    }, {
-        threshold: 0.15,
-        rootMargin: '-50px'
-    });
-
-    sections.forEach(section => {
-        section.classList.add('section-hidden');
-        sectionObserver.observe(section);
-    });
 });
 
 // Existing animation code
@@ -319,23 +242,23 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 
-// Enhanced active menu tracking
-const menuLi = document.querySelectorAll('header ul li a');
-const sections = document.querySelectorAll('section');
+// ACTIVE MENU
+
+let menuLi = document.querySelectorAll('header ul li a');
+let section = document.querySelectorAll('section');
 
 function activeMenu() {
-    let currentSection = sections.length - 1;
-    const scrollPosition = window.scrollY + window.innerHeight * 0.3;
-
-    sections.forEach((section, index) => {
-        const sectionTop = section.offsetTop;
-        const sectionBottom = sectionTop + section.offsetHeight;
-
-        if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
-            menuLi.forEach(item => item.classList.remove("active"));
-            menuLi[index].classList.add("active");
+    let currentSection = section.length - 1;
+    for (let i = 0; i < section.length; i++) {
+        if (window.scrollY + 97 < section[i].offsetTop) {
+            currentSection = i - 1;
+            break;
         }
-    });
+    }
+    menuLi.forEach(item => item.classList.remove("active"));
+    if (currentSection >= 0) {
+        menuLi[currentSection].classList.add("active");
+    }
 }
 
 activeMenu();
@@ -348,17 +271,18 @@ window.addEventListener("scroll", () => {
     header.classList.toggle("sticky", window.scrollY > 50);
 })
 
-//TOGGLE ICON NAVBAR
-// Use existing menuIcon and navlist variables from the mobile menu handling section
-if (!window.menuIconInitialized) {
-    window.menuIconInitialized = true;
-    window.onscroll = () => {
-        if (menuIcon && navlist) {
-            menuIcon.classList.remove("bx-x");
-            navlist.classList.remove("open");
-            document.body.classList.remove('menu-open');
-        }
-    };
+//TOGGLE ICON NAVABAR
+let menuIcon = document.querySelector("#menu-icon");
+let navlist = document.querySelector(".navlist");
+
+menuIcon.onclick = () => {
+    menuIcon.classList.toggle("bx-x");
+    navlist.classList.toggle("open");
+}
+
+window.onscroll = () => {
+    menuIcon.classList.remove("bx-x");
+    navlist.classList.remove("open");
 }
 
 //PARALLAX
@@ -526,95 +450,4 @@ document.addEventListener('DOMContentLoaded', () => {
             img.classList.add('loaded');
         });
     });
-});
-
-// Scroll animations
-const scrollAnimationElements = document.querySelectorAll(
-    '.scroll-scale, .scroll-bottom, .scroll-top'
-);
-
-const scrollObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('show-items');
-            scrollObserver.unobserve(entry.target); // Stop observing once animation is triggered
-        }
-    });
-}, {
-    threshold: 0.2,
-    rootMargin: '0px 0px -50px 0px'
-});
-
-scrollAnimationElements.forEach(element => {
-    scrollObserver.observe(element);
-});
-
-// Enhanced mobile menu handling
-const menuIcon = document.querySelector("#menu-icon");
-const navlist = document.querySelector(".navlist");
-const navLinks = document.querySelectorAll(".navlist a");
-
-menuIcon.addEventListener('click', () => {
-    menuIcon.classList.toggle("bx-x");
-    navlist.classList.toggle("open");
-    document.body.classList.toggle('menu-open');
-});
-
-// Close menu when clicking outside
-document.addEventListener('click', (e) => {
-    if (navlist.classList.contains('open') && 
-        !navlist.contains(e.target) && 
-        !menuIcon.contains(e.target)) {
-        menuIcon.classList.remove("bx-x");
-        navlist.classList.remove("open");
-        document.body.classList.remove('menu-open');
-    }
-});
-
-// Close menu when clicking on links
-navLinks.forEach(link => {
-    link.addEventListener('click', () => {
-        menuIcon.classList.remove("bx-x");
-        navlist.classList.remove("open");
-        document.body.classList.remove('menu-open');
-    });
-});
-
-// Debounce function for better scroll performance
-function debounce(func, wait = 20) {
-    let timeout;
-    return function executedFunction(...args) {
-        const later = () => {
-            clearTimeout(timeout);
-            func(...args);
-        };
-        clearTimeout(timeout);
-        timeout = setTimeout(later, wait);
-    };
-}
-
-// Optimize scroll event handlers
-const debouncedScroll = debounce(() => {
-    // Handle sticky header
-    header.classList.toggle("sticky", window.scrollY > 50);
-    
-    // Handle scroll to top button
-    scrollTopBtn.classList.toggle('active', window.scrollY > 300);
-    
-    // Handle active menu
-    activeMenu();
-});
-
-// Attach optimized scroll handler
-window.addEventListener("scroll", debouncedScroll);
-
-// Initialize elements on load
-document.addEventListener('DOMContentLoaded', () => {
-    if (window.scrollY > 50) {
-        header.classList.add("sticky");
-    }
-    if (window.scrollY > 300) {
-        scrollTopBtn.classList.add('active');
-    }
-    activeMenu();
 });
