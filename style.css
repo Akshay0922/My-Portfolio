@@ -1111,7 +1111,7 @@ section {
 
     .navlist {
         transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-                    opacity 0.4s ease;
+            opacity 0.4s ease;
         transform: translateY(-100%);
         opacity: 0;
     }
@@ -1132,12 +1132,29 @@ section {
         transform: translateX(0);
     }
 
-    .navlist.open li:nth-child(1) { transition-delay: 0.1s; }
-    .navlist.open li:nth-child(2) { transition-delay: 0.2s; }
-    .navlist.open li:nth-child(3) { transition-delay: 0.3s; }
-    .navlist.open li:nth-child(4) { transition-delay: 0.4s; }
-    .navlist.open li:nth-child(5) { transition-delay: 0.5s; }
-    .navlist.open li:nth-child(6) { transition-delay: 0.6s; }
+    .navlist.open li:nth-child(1) {
+        transition-delay: 0.1s;
+    }
+
+    .navlist.open li:nth-child(2) {
+        transition-delay: 0.2s;
+    }
+
+    .navlist.open li:nth-child(3) {
+        transition-delay: 0.3s;
+    }
+
+    .navlist.open li:nth-child(4) {
+        transition-delay: 0.4s;
+    }
+
+    .navlist.open li:nth-child(5) {
+        transition-delay: 0.5s;
+    }
+
+    .navlist.open li:nth-child(6) {
+        transition-delay: 0.6s;
+    }
 }
 
 @media (max-width: 480px) {
@@ -1286,8 +1303,13 @@ section {
 }
 
 @keyframes rotate {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 .formBtn .btn.sending::after {
@@ -1661,9 +1683,19 @@ footer a {
 }
 
 @keyframes shake {
-    0%, 100% { transform: translateX(0); }
-    25% { transform: translateX(-5px); }
-    75% { transform: translateX(5px); }
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-5px);
+    }
+
+    75% {
+        transform: translateX(5px);
+    }
 }
 
 .form-group .error-message {
@@ -1673,7 +1705,7 @@ footer a {
     display: none;
 }
 
-.form-group input:invalid + .error-message {
+.form-group input:invalid+.error-message {
     display: block;
 }
 
@@ -1735,8 +1767,13 @@ footer a {
 }
 
 @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 /* Section reveal animations */
@@ -1752,9 +1789,26 @@ section.show-section {
 }
 
 /* Stagger animation for sections */
-section:nth-child(2) { transition-delay: 0.1s; }
-section:nth-child(3) { transition-delay: 0.2s; }
-section:nth-child(4) { transition-delay: 0.3s; }
-section:nth-child(5) { transition-delay: 0.4s; }
-section:nth-child(6) { transition-delay: 0.5s; }
-section:nth-child(7) { transition-delay: 0.6s; }
+section:nth-child(2) {
+    transition-delay: 0.1s;
+}
+
+section:nth-child(3) {
+    transition-delay: 0.2s;
+}
+
+section:nth-child(4) {
+    transition-delay: 0.3s;
+}
+
+section:nth-child(5) {
+    transition-delay: 0.4s;
+}
+
+section:nth-child(6) {
+    transition-delay: 0.5s;
+}
+
+section:nth-child(7) {
+    transition-delay: 0.6s;
+}

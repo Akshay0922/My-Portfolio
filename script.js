@@ -2,7 +2,7 @@
 window.addEventListener('load', () => {
     const preloader = document.querySelector('.preloader');
     preloader.classList.add('fade-out');
-    
+
     // Remove preloader from DOM after animation
     preloader.addEventListener('transitionend', () => {
         preloader.remove();
@@ -408,7 +408,7 @@ document.addEventListener('DOMContentLoaded', function () {
             input.addEventListener('invalid', function (e) {
                 e.preventDefault();
                 input.classList.add('invalid');
-                
+
                 // Set custom error message based on validation type
                 if (input.validity.valueMissing) {
                     errorMsg.textContent = `${input.getAttribute('name')} is required`;
@@ -416,7 +416,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     errorMsg.textContent = `Please enter a valid ${input.getAttribute('name')}`;
                 }
                 errorMsg.style.display = 'block';
-                
+
                 // Shake animation
                 input.style.animation = 'none';
                 input.offsetHeight;
@@ -432,7 +432,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
 
         // Handle form submission
-        contactForm.addEventListener('submit', function(e) {
+        contactForm.addEventListener('submit', function (e) {
             if (contactForm.checkValidity()) {
                 submitBtn.textContent = 'Sending...';
                 submitBtn.classList.add('sending');
