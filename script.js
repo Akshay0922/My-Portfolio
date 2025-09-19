@@ -9,6 +9,7 @@ window.addEventListener('load', () => {
     });
 });
 
+
 // Existing animation code
 let words = document.querySelectorAll(".word");
 words.forEach((word) => {
@@ -47,6 +48,7 @@ let changeText = () => {
 
 changeText();
 const textInterval = setInterval(changeText, 3000);
+
 
 
 // Services Read More functionality
@@ -93,9 +95,11 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
+
     // Services read more functionality
     const servicesSection = document.querySelector('#services');
     const readMoreBtns = document.querySelectorAll('.service-box .read-more-btn');
+
 
     // Reset function for all service boxes
     const resetServiceBoxes = () => {
@@ -108,6 +112,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     };
 
+
     // Create intersection observer for services section
     const servicesObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
@@ -116,6 +121,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
     }, { threshold: 0.1 }); // Trigger when 10% of the section is visible
+
 
     // Start observing services section
     if (servicesSection) {
@@ -147,6 +153,8 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
+
+
 // SKILLS CIRCLE //
 
 const circles = document.querySelectorAll('.circle');
@@ -168,6 +176,8 @@ circles.forEach(elem => {
         pointsMarked[i].classList.add('marked')
     }
 })
+
+
 
 // PORTFOLIO MixItUp
 document.addEventListener('DOMContentLoaded', function () {
