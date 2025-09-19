@@ -2,58 +2,98 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thanks! | Akshay G Portfolio</title>
-    <link rel="stylesheet" href="style.css">
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <style>
-        .thanks-container {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 2rem;
-            background: var(--bg-color);
-            color: var(--text-color);
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Thank You | Akshay G Portfolio</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+  <style>
+    body {
+      margin: 0;
+      font-family: "Segoe UI", sans-serif;
+      background: var(--bg-color);
+      color: var(--text-color);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
 
-        .thanks-container h1 {
-            color: var(--hover-color);
-            margin-bottom: 1rem;
-        }
+    .thanks-card {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      border-radius: 12px;
+      padding: 2.5rem 2rem;
+      max-width: 500px;
+      text-align: center;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+      animation: fadeIn 0.8s ease;
+    }
 
-        .thanks-container p {
-            margin-bottom: 2rem;
-            font-size: 1.2rem;
-        }
+    .thanks-card i {
+      font-size: 3rem;
+      color: var(--hover-color);
+      margin-bottom: 1rem;
+      animation: bounce 2s infinite;
+    }
 
-        .back-btn {
-            display: inline-block;
-            padding: 1rem 2rem;
-            background: var(--hover-color);
-            color: var(--bg-color);
-            border-radius: 5px;
-            font-weight: 500;
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
+    .thanks-card h1 {
+      color: var(--hover-color);
+      margin-bottom: 1rem;
+      font-size: 2rem;
+    }
 
-        .back-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 10px rgba(18, 247, 255, 0.3);
-        }
-    </style>
+    .thanks-card p {
+      font-size: 1.1rem;
+      margin-bottom: 2rem;
+      line-height: 1.6;
+    }
+
+    .back-btn {
+      display: inline-block;
+      padding: 0.7rem 1.4rem;
+      background: var(--hover-color);
+      color: var(--bg-color);
+      border-radius: 6px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background 0.3s ease, transform 0.2s ease;
+    }
+
+    .back-btn:hover {
+      background: #ffb703;
+      transform: translateY(-2px);
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes bounce {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-8px);
+      }
+    }
+  </style>
 </head>
 
 <body>
-    <div class="thanks-container">
-        <h1>Thank You!</h1>
-        <p>Your message has been sent successfully. I'll get back to you soon!</p>
-        <a href="index.html" class="back-btn">Back to Portfolio</a>
-    </div>
+  <div class="thanks-card">
+    <i class='bx bxs-check-circle'></i>
+    <h1>Thank You!</h1>
+    <p>Your message has been sent successfully.<br> I’ll review it and get back to you shortly.</p>
+    <a href="index.html" class="back-btn">Back to Portfolio</a>
+  </div>
 </body>
 
 </html>

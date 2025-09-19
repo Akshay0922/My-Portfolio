@@ -7,142 +7,182 @@
   <title>Akshay - Resume</title>
   <style>
     body {
-      font-family: 'Segoe UI', sans-serif;
+      font-family: "Segoe UI", Roboto, sans-serif;
       margin: 0;
-      padding: 20px;
-      background: #f4f4f4;
+      padding: 30px;
+      background: #eef1f5;
       color: #333;
     }
 
     .container {
-      max-width: 800px;
+      max-width: 850px;
       margin: auto;
       background: #fff;
-      padding: 40px;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      line-height: 1.6;
+      padding: 50px 60px;
+      border-radius: 12px;
+      box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.08);
+      line-height: 1.65;
     }
 
-    h1,
+    h1 {
+      color: #1a73e8;
+      font-size: 2.2rem;
+      margin-bottom: 5px;
+    }
+
     h2 {
       color: #1a73e8;
+      font-size: 1.4rem;
+      margin-bottom: 12px;
+      border-bottom: 2px solid #1a73e8;
+      padding-bottom: 5px;
     }
 
     hr {
-      border: 1px solid #ddd;
+      border: none;
+      border-top: 1px solid #ddd;
+      margin: 25px 0;
     }
 
     .section {
-      margin-bottom: 25px;
+      margin-bottom: 30px;
     }
 
     ul {
+      list-style: none;
+      padding: 0;
       margin: 0;
-      padding-left: 20px;
+    }
+
+    ul li {
+      margin-bottom: 8px;
     }
 
     a {
       color: #1a73e8;
       text-decoration: none;
+      transition: color 0.3s ease;
     }
 
     a:hover {
-      font-weight: bolder;
+      color: #d63384;
+    }
+
+    .header-info {
+      margin-bottom: 15px;
+      font-size: 0.95rem;
+      color: #444;
     }
 
     .download-btn {
       display: inline-block;
-      margin-top: 10px;
-      padding: 8px 16px;
+      margin-top: 12px;
+      padding: 7px 14px;
       background-color: #1a73e8;
       color: white;
-      border-radius: 4px;
+      border-radius: 5px;
       text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: background 0.3s ease;
     }
 
     .download-btn:hover {
-      background-color: #0f5dc0;
-      text-decoration: none;
+      background-color: #155ab6;
+      color: white;
+    }
+
+    strong {
+      color: #222;
     }
   </style>
 </head>
 
 <body>
   <div class="container">
-    <h1>Akshay.</h1>
-    <p><strong>Email:</strong> akshayrealvlogs@gmail.com | <strong>Phone:</strong> 9896120216</p>
-    <p><strong>LinkedIn:</strong>
-      <a href="https://www.linkedin.com/in/itsakshayg?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
-        target="_blank" rel="noopener noreferrer">Click Here</a>
-      | <strong>GitHub:</strong>
-      <a href="https://github.com/Akshay0922" target="_blank" rel="noopener noreferrer">Click Here</a>
+    <!-- Header -->
+    <h1>Akshay G</h1>
+    <p class="header-info">
+      <strong>Email:</strong> akshay.dev2209@gmail.com |
+      <strong>Phone:</strong> 9896120216
     </p>
-    <p><a class="download-btn" href="AkshayG_CV.pdf" download>Download PDF</a></p>
+    <p class="header-info">
+      <strong>LinkedIn:</strong>
+      <a href="https://www.linkedin.com/in/itsakshayg" target="_blank" rel="noopener noreferrer">Check my Linkedin Id</a> |
+      <strong>GitHub:</strong>
+      <a href="https://github.com/Akshay0922" target="_blank" rel="noopener noreferrer">See All My Projects</a>
+    </p>
+    <p><a class="download-btn" href="akshayResume.pdf" download>Download Resume</a></p>
 
     <hr />
 
+    <!-- Career Objective -->
     <div class="section">
       <h2>Career Objective</h2>
-      <p>Motivated and detail-oriented MCA graduate with a strong foundation in full-stack development and a passion for
-        building practical web solutions. Seeking a challenging role to contribute technical expertise and grow
-        professionally.</p>
+      <p>
+        Motivated and detail-oriented MCA graduate with a solid foundation in full-stack
+        development and a strong passion for building scalable, real-world web applications.
+        Eager to contribute technical expertise in a growth-oriented environment and enhance
+        professional skills.
+      </p>
     </div>
 
+    <!-- Education -->
     <div class="section">
       <h2>Education</h2>
       <ul>
-        <li><strong>MCA</strong>, MAIMT, 2024–2026</li>
-        <li><strong>BSc</strong>, MLN, 2020–2023</li>
-        <li><strong>12th</strong>, CBSE, SRSSPS, 2019–2020</li>
-        <li><strong>10th</strong>, CBSE, SRSSPS, 2017–2018</li>
+        <li><strong>MCA</strong> – Maharaja Agrasen Institute of Management & Technology, Jagadhri <em>(2024–2026)</em></li>
+        <li><strong>BSc</strong> – Mukand Lal National College, Yamunanagar <em>(2020–2023)</em></li>
+        <li><strong>12th</strong> – Sun Rise Public School, Partapnagar (CBSE) <em>(2019–2020)</em></li>
+        <li><strong>10th</strong> – Sun Rise Public School, Partapnagar (CBSE) <em>(2017–2018)</em></li>
       </ul>
     </div>
 
+    <!-- Skills -->
     <div class="section">
       <h2>Technical Skills</h2>
       <ul>
-        <li>Frontend: HTML, CSS, JavaScript, React.js</li>
-        <li>Backend: Node.js, Express.js</li>
-        <li>Database: MongoDB, MySQL</li>
-        <li>Others: Git, REST API, JSON, Postman</li>
+        <li><strong>Frontend:</strong> HTML, CSS, JavaScript, React.js</li>
+        <li><strong>Backend:</strong> Node.js, Express.js</li>
+        <li><strong>Database:</strong> MongoDB, MySQL</li>
+        <li><strong>Others:</strong> Git/GitHub, REST APIs, JSON, Postman, VS Code</li>
       </ul>
     </div>
 
+    <!-- Projects -->
     <div class="section">
       <h2>Projects</h2>
       <ul>
-        <li><strong>Virtual Lost & Found System</strong> – A Node.js + MongoDB web platform to help users post and
-          search for lost/found items with filtering and matching functionality.</li>
-        <li><strong>Neumorphism Calculator</strong> – Stylish calculator using HTML, CSS & JS, featuring animated dark
-          mode toggle and history section.</li>
-        <li><strong>Portfolio Website</strong> – Responsive personal website built with HTML, CSS, and JS showcasing
-          skills, projects, and contact form with animation.</li>
+        <li><strong>Digital Library</strong> – Online platform to access, organize, and share digital learning resources anytime, anywhere.</li>
+        <li><strong>Library Management System</strong> – A complete system to efficiently manage books, users, and transactions within a library.</li>
+        <li><strong>Lets Change</strong> – A social initiative project focused on driving positive change through awareness and collective action.</li>
       </ul>
     </div>
 
+    <!-- Certifications -->
     <div class="section">
       <h2>Certifications</h2>
       <ul>
-        <li>Full-Stack Web Development – Coursera</li>
-        <li>JavaScript Essentials – Udemy</li>
+        <li><strong>Diploma in Computer Application</strong> – NCVET (HARTRON) <em>(2023–2024)</em></li>
       </ul>
     </div>
 
+    <!-- Languages -->
     <div class="section">
-      <h2>Languages Known</h2>
+      <h2>Languages</h2>
       <ul>
         <li>English</li>
         <li>Hindi</li>
       </ul>
     </div>
 
+    <!-- Soft Skills -->
     <div class="section">
       <h2>Soft Skills</h2>
       <ul>
         <li>Team Collaboration</li>
         <li>Communication</li>
-        <li>Problem Solving</li>
+        <li>Logical Thinking</li>
       </ul>
     </div>
   </div>
